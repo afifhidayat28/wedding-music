@@ -1,354 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Afif & Windi Wedding</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-
-body{
-
-    font-family: Georgia, serif;
-    overflow:hidden;
-
-}
-
-
-.page{
-
-    width:100vw;
-    height:100vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-
-}
-
-
-
-/* HALAMAN OPEN */
-
-#page1{
-
-    background:#fff8f0;
-
-}
-
-
-
-.cover h1{
-
-    font-size:50px;
-    color:#6b5138;
-
-}
-
-
-.cover p{
-
-    font-size:22px;
-    color:#8b7355;
-
-    margin:25px 0 40px;
-
-}
-
-
-
-button{
-
-    padding:16px 40px;
-
-    border:none;
-
-    border-radius:40px;
-
-    background:#6b5138;
-
-    color:white;
-
-    font-size:18px;
-
-    cursor:pointer;
-
-}
-
-
-
-button:hover{
-
-    opacity:0.85;
-
-}
-
-
-
-
-/* HALAMAN ISI */
-
-#page2{
-
-    display:none;
-
-    background:#fffaf5;
-
-}
-
-
-
-.content h1{
-
-    font-size:55px;
-
-    color:#6b5138;
-
-}
-
-
-
-.content h2{
-
-    margin-top:20px;
-
-    color:#8b7355;
-
-}
-
-
-
-.content p{
-
-    margin-top:30px;
-
-    color:#8b7355;
-
-    font-size:18px;
-
-}
-
-
-
-.music{
-
-    margin-top:40px;
-
-    font-size:45px;
-
-    animation:rotate 3s linear infinite;
-
-}
-
-
-
-@keyframes rotate{
-
-from{
-transform:rotate(0deg);
-}
-
-to{
-transform:rotate(360deg);
-}
-
-}
-
-
-
-#muteBtn{
-
-    margin-top:30px;
-
-    background:#8b7355;
-
-    font-size:14px;
-
-    padding:10px 25px;
-
-}
-
-
-
-</style>
-
+<title>Wedding Music Test</title>
 </head>
 
+<body style="text-align:center;padding-top:100px;">
 
+<h1>Afif & Windi</h1>
 
-<body>
-
-
-
-<!-- PAGE 1 -->
-
-<div id="page1" class="page">
-
-
-<div class="cover">
-
-
-<h1>
-Wedding Invitation
-</h1>
-
-
-<p>
-The Wedding Of<br>
-<strong>Afif & Windi</strong>
-</p>
-
-
-<button onclick="openInvitation()">
-💌 Open Invitation
+<button onclick="playMusic()" style="font-size:25px;padding:20px;">
+OPEN INVITATION
 </button>
 
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- PAGE 2 -->
-
-<div id="page2" class="page">
-
-
-<div class="content">
-
-
-<h1>
-Afif & Windi
-</h1>
-
-
-<h2>
-Our Wedding Day
-</h2>
-
-
-<p>
-Thank you for celebrating our special moment
-</p>
-
-
-<div class="music">
-🎵
-</div>
-
-
-<button id="muteBtn" onclick="muteMusic()">
-🔊 Mute
-</button>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- AUDIO -->
-
-<audio id="music" loop preload="auto">
-
-<source src="Timur.mp3" type="audio/mpeg">
-
+<audio id="music" loop>
+    <source src="./Timur.mp3" type="audio/mpeg">
 </audio>
-
-
 
 
 <script>
 
+function playMusic(){
 
-const music = document.getElementById("music");
+    let audio = document.getElementById("music");
 
+    audio.load();
 
-
-function openInvitation(){
-
-
-    // mulai musik setelah klik user
-
-    music.volume = 1;
-
-
-    music.play()
-    .then(function(){
-
-        console.log("Music playing");
-
+    audio.play()
+    .then(()=>{
+        alert("MUSIC PLAYING");
     })
-    .catch(function(error){
-
-        console.log(error);
-
+    .catch((error)=>{
+        alert("ERROR: " + error);
     });
 
-
-
-    // pindah halaman
-
-    document.getElementById("page1").style.display="none";
-
-
-    document.getElementById("page2").style.display="flex";
-
-
 }
-
-
-
-
-
-function muteMusic(){
-
-
-    if(music.muted){
-
-        music.muted=false;
-
-        document.getElementById("muteBtn").innerHTML="🔊 Mute";
-
-    }
-
-    else{
-
-        music.muted=true;
-
-        document.getElementById("muteBtn").innerHTML="🔇 Unmute";
-
-    }
-
-
-}
-
-
 
 </script>
 
 
-
 </body>
-
 </html>
