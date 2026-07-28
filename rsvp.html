@@ -1,126 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RSVP</title>
+<title>Wedding RSVP</title>
 
 <style>
+
 body {
-    margin: 0;
-    padding: 20px;
     font-family: Arial, sans-serif;
     background: #faf7f2;
+    padding: 20px;
 }
 
 .container {
-    max-width: 400px;
+    max-width: 500px;
     margin: auto;
     background: white;
-    padding: 25px;
+    padding: 30px;
     border-radius: 20px;
 }
 
-h2 {
+h1, h2 {
     text-align: center;
     color: #485331;
 }
 
-label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-}
-
-input, textarea, select {
+input, select, textarea {
     width: 100%;
     padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    border: 1px solid #ccc;
     box-sizing: border-box;
 }
 
 textarea {
-    height: 90px;
-}
-
-.button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    height: 100px;
 }
 
 button {
-    flex: 1;
-    padding: 12px;
+    width: 100%;
+    padding: 14px;
+    background: #485331;
+    color: white;
+    border: none;
     border-radius: 10px;
-    border: 1px solid #485331;
-    background: white;
-    color: #485331;
     cursor: pointer;
 }
 
-button.selected {
-    background: #485331;
-    color: white;
+button:hover {
+    opacity: 0.8;
 }
 
-.submit {
-    width: 100%;
-    margin-top: 20px;
-    background: #485331;
-    color: white;
+.card {
+    background: #f6f3ec;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+.nama {
+    font-weight: bold;
+    color: #485331;
+}
+
+.loading {
+    text-align: center;
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-<h2>RSVP</h2>
+<h1>RSVP</h1>
 
-<label>Full Name</label>
-<input type="text" placeholder="Your name">
+<form id="rsvpForm">
 
-<label>Guest Wall</label>
-<textarea placeholder="Write your message"></textarea>
+<input 
+type="text" 
+name="nama"
+placeholder="Nama Anda"
+required>
 
-<label>Number of Guests</label>
-<select>
-    <option>1 Guest</option>
-    <option>2 Guests</option>
-    <option>3 Guests</option>
-    <option>4 Guests</option>
+
+<select name="kehadiran" required>
+
+<option value="">
+Konfirmasi Kehadiran
+</option>
+
+<option value="Hadir">
+Hadir
+</option>
+
+<option value="Tidak Hadir">
+Tidak Hadir
+</option>
+
 </select>
 
-<label>Attendance</label>
 
-<div class="button-group">
-    <button onclick="choose(this)">Attend</button>
-    <button onclick="choose(this)">Not Attend</button>
-</div>
+<textarea
+name="ucapan"
+placeholder="Tulis ucapan untuk pengantin..."
+required></textarea>
 
-<button class="submit">
-Submit RSVP
+
+<button type="submit">
+Kirim RSVP
 </button>
 
+
+</form>
+
+
+<h2>Ucapan Tamu</h2>
+
+
+<div id="messages" class="loading">
+Memuat ucapan...
 </div>
+
+
+</div>
+
+
 
 
 <script>
 
-function choose(btn){
-    document.querySelectorAll(".button-group button")
-    .forEach(b => b.classList.remove("selected"));
 
-    btn.classList.add("selected");
+// LINK GOOGLE APPS SCRIPT KAMU
+const scriptURL = 
+"https://script.google.com/macros/s/AKfycbwON9PBCqJ2N6J78SWCk4Ota6XogoB7tdcLNmRzCPHoouX_cRC2-RuG2MldfoUn2WA/exec";
+
+
+
+const form = document.getElementById("rsvpForm");
+
+
+
+form.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+
+fetch(scriptURL, {
+
+method: "POST",
+
+body: new FormData(form)
+
+})
+
+.then(response => {
+
+alert("RSVP berhasil dikirim ❤️");
+
+form.reset();
+
+loadMessages();
+
+})
+
+.catch(error => {
+
+alert("Gagal mengirim RSVP");
+
+console.log(error);
+
+});
+
+
+});
+
+
+
+
+
+function loadMessages(){
+
+
+fetch(scriptURL)
+
+.then(response => response.json())
+
+.then(data => {
+
+
+let html = "";
+
+
+data.reverse().forEach(item => {
+
+
+html += `
+
+<div class="card">
+
+<div class="nama">
+${item.nama}
+</div>
+
+<div>
+${item.kehadiran}
+</div>
+
+<p>
+${item.ucapan}
+</p>
+
+</div>
+
+`;
+
+
+
+});
+
+
+document.getElementById("messages").innerHTML = html;
+
+
+})
+
+.catch(error => {
+
+
+document.getElementById("messages").innerHTML =
+"Gagal memuat ucapan";
+
+
+});
+
+
 }
 
+
+
+loadMessages();
+
+
+
 </script>
+
 
 </body>
 </html>
