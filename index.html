@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
+
+<style>
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    background:#000;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+.loader{
+    text-align:center;
+}
+
+.loader h2{
+    font-weight:300;
+    letter-spacing:2px;
+}
+
+.loader p{
+    opacity:.7;
+}
+</style>
+
+</head>
+<body>
+
+<div class="loader">
+    <h2>💍</h2>
+    <p>Loading Invitation...</p>
+</div>
+
+<audio id="bgm" autoplay>
+    <source src="Timur.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const audio = document.getElementById("bgm");
+
+audio.play().catch(()=>{});
+
+setTimeout(function(){
+    window.location.href="https://awawgettingmarried.my.canva.site/wedding-invitation-of-windi-afif/18102026aw";
+},1000);
+
+</script>
+
+</body>
+</html>
