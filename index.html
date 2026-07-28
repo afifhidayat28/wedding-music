@@ -20,16 +20,14 @@
 body{
 
     font-family: Georgia, serif;
-    overflow:hidden;
+    background:#fff8f0;
+    color:#6b5138;
 
 }
 
 
-/* PAGE */
+.hero{
 
-.page{
-
-    width:100vw;
     height:100vh;
 
     display:flex;
@@ -38,33 +36,69 @@ body{
 
     text-align:center;
 
-}
+    padding:30px;
 
+    background:
+    linear-gradient(
+    rgba(255,248,240,0.85),
+    rgba(255,248,240,0.85)
+    ),
+    url("https://images.unsplash.com/photo-1519741497674-611481863552");
 
-/* PAGE 1 */
-
-#page1{
-
-    background:#fff8f0;
-
-}
-
-
-.cover h1{
-
-    font-size:50px;
-    color:#6b5138;
+    background-size:cover;
+    background-position:center;
 
 }
 
 
-.cover p{
+.content h1{
 
-    margin:25px 0 40px;
+    font-size:60px;
 
-    font-size:22px;
+    margin-bottom:20px;
 
-    color:#8b7355;
+}
+
+
+.content h2{
+
+    font-size:30px;
+
+    font-weight:normal;
+
+}
+
+
+
+.content p{
+
+    font-size:20px;
+
+    margin-top:25px;
+
+    line-height:1.6;
+
+}
+
+
+
+.divider{
+
+    margin:30px auto;
+
+    width:100px;
+
+    height:2px;
+
+    background:#6b5138;
+
+}
+
+
+
+.music-control{
+
+    margin-top:40px;
 
 }
 
@@ -72,89 +106,17 @@ body{
 
 button{
 
-    padding:18px 45px;
+    padding:12px 30px;
 
     border:none;
 
-    border-radius:50px;
+    border-radius:30px;
 
     background:#6b5138;
 
     color:white;
 
-    font-size:18px;
-
-    cursor:pointer;
-
-}
-
-
-
-/* PAGE 2 */
-
-#page2{
-
-    display:none;
-
-    background:#fffaf5;
-
-}
-
-
-.content h1{
-
-    font-size:55px;
-
-    color:#6b5138;
-
-}
-
-
-.content p{
-
-    margin-top:25px;
-
-    font-size:20px;
-
-    color:#8b7355;
-
-}
-
-
-.music-icon{
-
-    margin-top:40px;
-
-    font-size:50px;
-
-    animation:spin 3s linear infinite;
-
-}
-
-
-
-@keyframes spin{
-
-from{
-    transform:rotate(0deg);
-}
-
-to{
-    transform:rotate(360deg);
-}
-
-}
-
-
-#muteBtn{
-
-    margin-top:30px;
-
-    background:#8b7355;
-
-    font-size:14px;
-
-    padding:10px 25px;
+    font-size:16px;
 
 }
 
@@ -162,52 +124,14 @@ to{
 
 </style>
 
-
 </head>
-
 
 
 <body>
 
 
-<!-- PAGE 1 -->
 
-<div id="page1" class="page">
-
-
-<div class="cover">
-
-
-<h1>
-Wedding Invitation
-</h1>
-
-
-<p>
-The Wedding Of<br>
-<strong>Afif & Windi</strong>
-</p>
-
-
-<button onclick="openInvitation()">
-
-💌 Open Invitation
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- PAGE 2 -->
-
-<div id="page2" class="page">
+<div class="hero">
 
 
 <div class="content">
@@ -218,33 +142,45 @@ Afif & Windi
 </h1>
 
 
+<h2>
+Wedding Invitation
+</h2>
+
+
+<div class="divider"></div>
+
+
 <p>
-Together With Love
+18 October 2026
 </p>
 
 
-<div class="music-icon">
-🎵
-</div>
+<p>
+Together with love,<br>
+we invite you to celebrate<br>
+our special day
+</p>
 
 
-<button id="muteBtn" onclick="toggleMusic()">
-🔊 Mute
+
+<div class="music-control">
+
+<button onclick="toggleMusic()" id="musicBtn">
+🔊 Music
 </button>
 
-
 </div>
 
 
 </div>
 
 
+</div>
 
 
 
-<!-- AUDIO JANGAN DIPINDAH -->
 
-<audio id="music" loop preload="auto">
+<audio id="music" autoplay loop>
 
 <source src="Timur.mp3" type="audio/mpeg">
 
@@ -260,41 +196,11 @@ const music = document.getElementById("music");
 
 
 
-function openInvitation(){
-
-
-    // mulai musik setelah user klik
+window.addEventListener("load",()=>{
 
     music.volume = 1;
 
-
-    music.play()
-    .then(()=>{
-
-        console.log("Music started");
-
-    })
-    .catch(error=>{
-
-        console.log(error);
-
-    });
-
-
-
-    // hanya sembunyikan page 1
-
-    document.getElementById("page1").style.display="none";
-
-
-    // tampilkan page 2
-
-    document.getElementById("page2").style.display="flex";
-
-
-}
-
-
+});
 
 
 
@@ -305,7 +211,7 @@ function toggleMusic(){
 
         music.play();
 
-        document.getElementById("muteBtn").innerHTML="🔊 Mute";
+        document.getElementById("musicBtn").innerHTML="🔊 Music";
 
     }
 
@@ -313,13 +219,12 @@ function toggleMusic(){
 
         music.pause();
 
-        document.getElementById("muteBtn").innerHTML="🔇 Play";
+        document.getElementById("musicBtn").innerHTML="🔇 Pause";
 
     }
 
 
 }
-
 
 
 </script>
